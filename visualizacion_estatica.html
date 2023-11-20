@@ -1,0 +1,707 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Visualización estática &#8212; Introducción a la visualización de datos con python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'visualizacion_estatica';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Visualización por estratos: Ejercicio" href="visualizacion_estratos.html" />
+    <link rel="prev" title="Introducción a visualización de datos con python" href="intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/Logouninorte.png" class="logo__image only-light" alt="Introducción a la visualización de datos con python - Home"/>
+    <script>document.write(`<img src="_static/Logouninorte.png" class="logo__image only-dark" alt="Introducción a la visualización de datos con python - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Introducción a visualización de datos con python
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Visualización estática</a></li>
+<li class="toctree-l1"><a class="reference internal" href="visualizacion_estratos.html">Visualización por estratos: Ejercicio</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/SandraMaldonado19/Dataviz_T4.git" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SandraMaldonado19/Dataviz_T4.git/issues/new?title=Issue%20on%20page%20%2Fvisualizacion_estatica.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/visualizacion_estatica.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Visualización estática</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="visualizacion-estatica">
+<h1>Visualización estática<a class="headerlink" href="#visualizacion-estatica" title="Permalink to this heading">#</a></h1>
+<ul class="simple">
+<li><p>Inicialmente se descargan los datos que son objetivo de estudio a través de un archivo .csv y procedemos a subir el archivo.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">archivo_csv</span> <span class="o">=</span> <span class="s2">&quot;.</span><span class="se">\\</span><span class="s2">assest</span><span class="se">\\</span><span class="s2">athlete_events.csv&quot;</span>  
+
+<span class="c1"># Cargamos los datos en un DataFrame con Pandas</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">archivo_csv</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ID                      Name Sex   Age  Height  Weight            Team  \
+0   1                 A Dijiang   M  24.0   180.0    80.0           China   
+1   2                  A Lamusi   M  23.0   170.0    60.0           China   
+2   3       Gunnar Nielsen Aaby   M  24.0     NaN     NaN         Denmark   
+3   4      Edgar Lindenau Aabye   M  34.0     NaN     NaN  Denmark/Sweden   
+4   5  Christine Jacoba Aaftink   F  21.0   185.0    82.0     Netherlands   
+
+   NOC        Games  Year  Season       City          Sport  \
+0  CHN  1992 Summer  1992  Summer  Barcelona     Basketball   
+1  CHN  2012 Summer  2012  Summer     London           Judo   
+2  DEN  1920 Summer  1920  Summer  Antwerpen       Football   
+3  DEN  1900 Summer  1900  Summer      Paris     Tug-Of-War   
+4  NED  1988 Winter  1988  Winter    Calgary  Speed Skating   
+
+                              Event Medal  
+0       Basketball Men&#39;s Basketball   NaN  
+1      Judo Men&#39;s Extra-Lightweight   NaN  
+2           Football Men&#39;s Football   NaN  
+3       Tug-Of-War Men&#39;s Tug-Of-War  Gold  
+4  Speed Skating Women&#39;s 500 metres   NaN  
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Filtramos ahora nuestros datos para incluir únicamente las filas correspondientes a los ganadores de medallas de 2016 en los cinco deportes de estudio: atletismo, natación, remo, fútbol y hockey</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Filtrar por año (2016) y deportes específicos</span>
+<span class="n">filtro</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2016</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Sport&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s1">&#39;Athletics&#39;</span><span class="p">,</span> <span class="s1">&#39;Swimming&#39;</span><span class="p">,</span> <span class="s1">&#39;Rowing&#39;</span><span class="p">,</span> <span class="s1">&#39;Football&#39;</span><span class="p">,</span> <span class="s1">&#39;Hockey&#39;</span><span class="p">]))</span>
+
+<span class="c1"># Aplicar el filtro al DataFrame</span>
+<span class="n">resultados_2016</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">filtro</span><span class="p">]</span>
+
+<span class="c1"># Mostrar los resultados filtrados</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">resultados_2016</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>            ID                                   Name Sex   Age  Height  \
+148         55                    Antonio Abadia Beci   M  26.0   170.0   
+158         62                      Giovanni Abagnale   M  21.0   198.0   
+232        110                   Abubakar Abbas Abbas   M  20.0   175.0   
+432        239                       Ayoub Abdellaoui   M  23.0   184.0   
+451        251                            Bashir Abdi   M  27.0   176.0   
+...        ...                                    ...  ..   ...     ...   
+270943  135489  Anastasiya Valeryevna Zuyeva-Fesikova   F  26.0   182.0   
+271019  135525                         Martin Zwicker   M  29.0   175.0   
+271053  135547          Viktoriya Viktorovna Zyabkina   F  23.0   174.0   
+271054  135547          Viktoriya Viktorovna Zyabkina   F  23.0   174.0   
+271055  135547          Viktoriya Viktorovna Zyabkina   F  23.0   174.0   
+
+        Weight        Team  NOC        Games  Year  Season            City  \
+148       65.0       Spain  ESP  2016 Summer  2016  Summer  Rio de Janeiro   
+158       90.0       Italy  ITA  2016 Summer  2016  Summer  Rio de Janeiro   
+232       66.0     Bahrain  BRN  2016 Summer  2016  Summer  Rio de Janeiro   
+432       68.0     Algeria  ALG  2016 Summer  2016  Summer  Rio de Janeiro   
+451       56.0     Belgium  BEL  2016 Summer  2016  Summer  Rio de Janeiro   
+...        ...         ...  ...          ...   ...     ...             ...   
+270943    71.0      Russia  RUS  2016 Summer  2016  Summer  Rio de Janeiro   
+271019    64.0     Germany  GER  2016 Summer  2016  Summer  Rio de Janeiro   
+271053    62.0  Kazakhstan  KAZ  2016 Summer  2016  Summer  Rio de Janeiro   
+271054    62.0  Kazakhstan  KAZ  2016 Summer  2016  Summer  Rio de Janeiro   
+271055    62.0  Kazakhstan  KAZ  2016 Summer  2016  Summer  Rio de Janeiro   
+
+            Sport                                         Event   Medal  
+148     Athletics                  Athletics Men&#39;s 5,000 metres     NaN  
+158        Rowing                    Rowing Men&#39;s Coxless Pairs  Bronze  
+232     Athletics                    Athletics Men&#39;s 400 metres     NaN  
+432      Football                       Football Men&#39;s Football     NaN  
+451     Athletics                  Athletics Men&#39;s 5,000 metres     NaN  
+...           ...                                           ...     ...  
+270943   Swimming  Swimming Women&#39;s 4 x 100 metres Medley Relay     NaN  
+271019     Hockey                           Hockey Men&#39;s Hockey  Bronze  
+271053  Athletics                  Athletics Women&#39;s 100 metres     NaN  
+271054  Athletics                  Athletics Women&#39;s 200 metres     NaN  
+271055  Athletics        Athletics Women&#39;s 4 x 100 metres Relay     NaN  
+
+[5489 rows x 15 columns]
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Revisamos el tipo de datos que tenemos</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">resultados_2016</span><span class="o">.</span><span class="n">dtypes</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ID          int64
+Name       object
+Sex        object
+Age       float64
+Height    float64
+Weight    float64
+Team       object
+NOC        object
+Games      object
+Year        int64
+Season     object
+City       object
+Sport      object
+Event      object
+Medal      object
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>ID: Es de tipo int64, lo que indica que es un identificador único representado como un número entero.</p></li>
+<li><p>Name, Sex, Team, NOC, Games, Season, City, Sport, Event, Medal: Contienen datos de tipo object, lo que significa que contienen valores de texto o cadenas de caracteres.</p></li>
+<li><p>Age, Height, Weight: Son de tipo float64, lo que indica valores numéricos decimales.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="c1"># Gráfico de dispersión para ver el comportamiento de los datos</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;Height&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Weight&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;Sport&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">resultados_2016</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span>
+
+<span class="c1"># Colocamos los nombres de lo titulos que se van a visualizar en el gráfico</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Altura vs Peso de Ganadores de Medallas en Deportes Olímpicos 2016&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Altura (cm)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Peso (kg)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Deporte&#39;</span><span class="p">)</span>
+
+<span class="c1"># Mostrar el gráfico</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>c:\Users\Sandra\anaconda3\envs\dataviz_venv\lib\site-packages\seaborn\_core.py:1225: FutureWarning: is_categorical_dtype is deprecated and will be removed in a future version. Use isinstance(dtype, CategoricalDtype) instead
+  if pd.api.types.is_categorical_dtype(vector):
+c:\Users\Sandra\anaconda3\envs\dataviz_venv\lib\site-packages\seaborn\_core.py:1225: FutureWarning: is_categorical_dtype is deprecated and will be removed in a future version. Use isinstance(dtype, CategoricalDtype) instead
+  if pd.api.types.is_categorical_dtype(vector):
+c:\Users\Sandra\anaconda3\envs\dataviz_venv\lib\site-packages\seaborn\_core.py:1225: FutureWarning: is_categorical_dtype is deprecated and will be removed in a future version. Use isinstance(dtype, CategoricalDtype) instead
+  if pd.api.types.is_categorical_dtype(vector):
+</pre></div>
+</div>
+<img alt="_images/80c4a618668e6de3989f6f991717e70f19a8f2db4df00e1d60bb4514ba142b07.png" src="_images/80c4a618668e6de3989f6f991717e70f19a8f2db4df00e1d60bb4514ba142b07.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>Podemos ver que de forma general el comportamiento es parecido en cada uno de los deportes. Así, de forma global podemos decir que los participantes en su mayoría tienen un altura de 150 cm a 200 cm y tienen un peso entre 40 kg y 100 kg.</p></li>
+<li><p>De forma puntual, podemos ver que el deporte con mayor variabilidad en terminos de altura y peso es Athletics. A diferencia de “Hockey” cuyo comportamiento parece ser más estable. Los participantes de Hockey tienen una altura entre 150cm y 195 cm aprroximandamente y los pesos van desde 43kg hasta 90 kg aproximadamente. Por otro lado, podemos ver que conforme se aumenta en altura se aumenta un poco la distribución  cuanto al peso.</p></li>
+</ul>
+<ul class="simple">
+<li><p>Ahora, para visualizar según tipo de medalla, procedemos a filtrar nuestros datos respecto a esta variable</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Filtrar por medalla específica</span>
+<span class="n">medalla_oro</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Medal&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Gold&#39;</span><span class="p">]</span>
+<span class="n">medalla_plata</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Medal&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Silver&#39;</span><span class="p">]</span>
+<span class="n">medalla_bronce</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Medal&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Bronze&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Crear subplots para altura y peso</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+
+<span class="c1"># Definir una paleta de colores personalizada</span>
+<span class="n">colores</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Gold&#39;</span><span class="p">:</span> <span class="s1">&#39;gold&#39;</span><span class="p">,</span> <span class="s1">&#39;Silver&#39;</span><span class="p">:</span> <span class="s1">&#39;silver&#39;</span><span class="p">,</span> <span class="s1">&#39;Bronze&#39;</span><span class="p">:</span> <span class="s1">&#39;peru&#39;</span><span class="p">}</span>
+
+<span class="c1"># Gráfico de cajas para altura con paleta de colores</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;Medal&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Height&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Gold&#39;</span><span class="p">,</span> <span class="s1">&#39;Silver&#39;</span><span class="p">,</span> <span class="s1">&#39;Bronze&#39;</span><span class="p">],</span> <span class="n">palette</span><span class="o">=</span><span class="n">colores</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Distribución de Altura por Tipo de Medalla&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Medalla&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Altura (cm)&#39;</span><span class="p">)</span>
+
+<span class="c1"># Gráfico de cajas para peso con paleta de colores</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;Medal&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Weight&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Gold&#39;</span><span class="p">,</span> <span class="s1">&#39;Silver&#39;</span><span class="p">,</span> <span class="s1">&#39;Bronze&#39;</span><span class="p">],</span> <span class="n">palette</span><span class="o">=</span><span class="n">colores</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Distribución de Peso por Tipo de Medalla&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Medalla&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Peso (kg)&#39;</span><span class="p">)</span>
+
+<span class="c1"># Ajustes de diseño</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>c:\Users\Sandra\anaconda3\envs\dataviz_venv\lib\site-packages\seaborn\_core.py:1225: FutureWarning: is_categorical_dtype is deprecated and will be removed in a future version. Use isinstance(dtype, CategoricalDtype) instead
+  if pd.api.types.is_categorical_dtype(vector):
+c:\Users\Sandra\anaconda3\envs\dataviz_venv\lib\site-packages\seaborn\_core.py:1225: FutureWarning: is_categorical_dtype is deprecated and will be removed in a future version. Use isinstance(dtype, CategoricalDtype) instead
+  if pd.api.types.is_categorical_dtype(vector):
+</pre></div>
+</div>
+<img alt="_images/c5c24f256081497749d03726057380fe8a695e7d1903598b5f93d92fa6d4b12b.png" src="_images/c5c24f256081497749d03726057380fe8a695e7d1903598b5f93d92fa6d4b12b.png" />
+</div>
+</div>
+<p><strong>Altura por Tipo de Medalla:</strong></p>
+<p>Si observamos la mediana. Podemos notar que no hay diferencias visibles en la altura mediana entre los ganadores de medallas de oro, plata y bronce. Por lo que pordiamos decir que la altura no define ganar una medalla de oro. Asimismo, podemos ver que de forma global la altura para los ganadores de medallas de bronce es un poco más baja que para los de oro y plata, lo que podría indicar  de forma global los atletas que ganaron bronze son un poco más bajos en comparación con aquellos que ganaron oro o plata.
+Con respecto a la dispersión de los datos. Los bigotes de la caja y los puntos fuera de ellos nos dan una idea de la variabilidad de la altura en cada tipo de medalla.</p>
+<p><strong>Peso por Tipo de Medalla:</strong></p>
+<p>Similar a la altura, la comparación entre las medianas del peso para los ganadores de diferentes medallas puede proporcionar información sobre posibles diferencias en el peso de los atletas que ganaron medallas de oro, plata y bronce.
+Podemos notar que los ganadores de medallas de Bronze tiene una mediana inferior a los ganadores de oro y plata, por lo que podria supones que a menor peso menor es la probabilidad de tener un medalla de oro o plata.
+Por otro lado, si vemos el caso puntual de bronze parece que hay muchos valores atípicos en este tipo de medalla, podríamos suponer que existe una mayor variabilidad en el peso de los atletas que ganaron esta medalla en particular.</p>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Introducción a visualización de datos con python</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="visualizacion_estratos.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Visualización por estratos: Ejercicio</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Sandra Maldonado - Sherine Menco
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
